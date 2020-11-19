@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Computer Vision Course Project
+  | ECE, Virginia Tech | Fall 2020: ECE 4554/5554</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+<!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+.vis {
+color: #3366CC;
+}
+.data {
+color: #FF9900;
+}
+</style>
+
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="container">
+<div class="page-header">
+
+<!-- Title and Name -->
+<h1>Image Classification of Pedestrians</h1>
+<span style="font-size: 20px; line-height: 1.5em;"><strong>Group 23: David Stanley/Jhonie Geffa</strong></span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Fall 2020 ECE 4554/5554 Computer Vision: Course Project</span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+<hr>
+
+<!-- Proposal -->
+<!--
+<h2>Proposal Elements</h2>
+<h3>Problem Statement</h3>
+The goal of this project is to create a system that will identify pedestrians in pictures and
+visualize an area around the pedestrians not to be entered by autonomous vehicles.
+This project is inspired by the recent incidents involving autonomous vehicles and pedestrians.
+<br>
+<strong>Input:</strong>
+The input to this project will be a still image(s) that may or may not contain
+a pedestrian. The project will use a large dataset of these images to train the algorithm.
+<br>
+<strong>Output:</strong>
+The output of this project will be a still image(s) that will contain a box around all pedestrians.
+<h3>Approach</h3>
+Pedestrian detection is an actively researched area in computer vision with multiple different types of approaches.
+Existing approaches include holistic detection, part-based detection, patch-based detection, motion-based detection, and detection using multiple cameras.
+For this project we will approach this problem using holistic detection.
+<br><br>
+Holistic detection focuses on training detectors to search for pedestrians in the image.
+The detector would highlight features in the local searching window that meet the criteria of the object.
+Such criteria includes a set of edge templates of pedestrians to compare against. Other systems include local features like histogram of oriented gradients.
+The problem with this method is the adverse effect of background clutter has on performance.
+For the scope of this project the image dataset used will limit the number of environment distraction to help with performance.
+This will come with the drawback that our implementation will not have widespread use.
+<h3>Experiments and Results</h3>
+This project will use a large existing dataset from UPenn, shown <a href="https://www.cis.upenn.edu/~jshi/ped_html/">here</a>
+for both training and testing data. The training data will be used to train the model
+to identify pedestrians and draw an image box around them. After training has been completed,
+the remaining images will have the locations of their image boxes recorded and validated against pre-determined coordinates
+from bounding in OpenCV or manually identifying bounds. This experiment will be considered successful if each pedestrian is identified
+and the output image box location is centered within a 25% error bound from the center of the pedestrian.
+The only code borrowed to complete this project will be from OpenCV to use filtering methods and for image bound comparison.
+-->
+
+<!-- Midsemester Report -->
+<h2>Midsemester Report</h2>
+<h3>Abstract</h3>
+The goal of this project was to create a system that identified pedestrians in pictures and
+visualized an area around the pedestrians not to be entered by autonomous vehicles.
+This project was inspired by the recent incidents involving autonomous vehicles and pedestrians.
+The approach for this project was to use holistic detection to find pedestrians in each image.
+The detected pedestrians were then compared to existing bounding boxes for accuracy.
+<h3>Teaser Figure</h3>
+<!-- figure -->
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="teaserPic.png">
+</div>
+<h3>Introduction</h3>
+Pedestrian detection is an actively researched area in computer vision with multiple different types of approaches.
+Existing approaches include holistic detection, part-based detection, patch-based detection, motion-based detection, and detection using multiple cameras.
+For this project we will approach this problem using holistic detection.
+<br>
+The use cases of this project are to mimic existing research into pedestrian detection. This is a fascinating problem
+that has a lot of real world impact as autonomous vehicles come closer and closer to full commercialization.
+<h3>Approach</h3>
+Holistic detection focuses on training detectors to search for pedestrians in the image.
+The detector would highlight features in the local searching window that meet the criteria of the object.
+Such criteria includes a set of edge templates of pedestrians to compare against. Other systems include local features like histogram of oriented gradients.
+The problem with this method is the adverse effect of background clutter has on performance.
+For the scope of this project the image dataset used will limit the number of environment distraction to help with performance.
+This will come with the drawback that our implementation will not have widespread use.
+<h3>Experiments and Results</h3>
+This project used a large existing dataset from UPenn, shown <a href="https://www.cis.upenn.edu/~jshi/ped_html/">here</a>
+for both training and testing data. The training data was used to train the model
+to identify pedestrians and draw an image box around them. After training was completed,
+the remaining images had the locations of their image boxes recorded and validated against pre-determined coordinates
+from bounding in OpenCV.
+<br>
+This experiment will be considered successful if each pedestrian is identified
+and the output image box location is centered within a 25% error bound from the center of the pedestrian.
+The only code borrowed to complete this project was from OpenCV to use filtering methods and for image bound comparison.
+<h3>Qualitative Results</h3>
+For the Midsemester goal, testing was implemented using OpenCV. The algorithm uses holistic detection to create a
+bounding box around images in the testing fileset. This will be used to test the algorithm created for the final report.
+<!-- Final Report -->
+<!--
+<h2>Final Report</h2>
+-->
+  <hr>
+  <footer>
+  <p>© Group 23: David Stanley/Jhonie Geffa</p>
+  </footer>
+</div>
+</div>
+
+<br><br>
+
+</body></html>
