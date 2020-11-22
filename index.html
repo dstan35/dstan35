@@ -75,23 +75,28 @@ and the output image box location is centered within a 25% error bound from the 
 The only code borrowed to complete this project will be from OpenCV to use filtering methods and for image bound comparison.
 -->
 
-<!-- Midsemester Report -->
+<!-- Final Report -->
 <h2>Final Report</h2>
 <h3>Abstract</h3>
-The goal of this project was to create a system that identified pedestrians in pictures and
-visualized an area around the pedestrians not to be entered by autonomous vehicles.
+The goal of this project was to analyze and explore existing methods of identifying pedestrians in pictures to
+visualize an area around the pedestrians not to be entered by autonomous vehicles.
 This project was inspired by the recent incidents involving autonomous vehicles and pedestrians.
-The approach for this project was to use holistic detection to find pedestrians in each image.
-The detected pedestrians were then compared to existing bounding boxes for accuracy.
+The approach for this project was to use both holistic detection and part-based detection to find pedestrians in each image.
+While neither method was optimal, holistic detection was much more effective at identifying pedestrians.
 <h3>Teaser Figure</h3>
 <!-- figure -->
 <div style="text-align: left;">
 <img style="height: 200px;" alt="" src="teaserPic.png">
+<br>
+Figure 1: Example of correctly identified pedestrians from UPenn research.
 </div>
 <h3>Introduction</h3>
-Pedestrian detection is an actively researched area in computer vision with multiple different types of approaches.
-Existing approaches include holistic detection, part-based detection, patch-based detection, motion-based detection, and detection using multiple cameras.
-For this project we will approach this problem using holistic detection.
+The motivation for this project is the rapid development of autonomous vehicles. These vehicles rely on pedestrian detection to avoid accidents. The goal of this project was to learn more about how pedestrians are identified by machines.
+Background research identified that existing approaches include holistic detection, part-based detection, patch-based detection, motion-based detection, and detection using multiple cameras.
+<br>
+For this project, two different types of pedestrian detection systems were implemented: holistic detection and part-based detection.
+In holistic detection, the algorithm searches for the whole body of the person to decide if it shows up in the image. In part-based detection, a person’s body is subdivided into 2 or more parts and those parts are used to identify a person in an image.
+For this project, the person model was subdivided into a top and lower half. If both halves were found and were close to each other, the algorithm would detect that person.
 <br>
 The use cases of this project are to mimic existing research into pedestrian detection. This is a fascinating problem
 that has a lot of real world impact as autonomous vehicles come closer and closer to full commercialization.
@@ -113,9 +118,59 @@ This experiment will be considered successful if each pedestrian is identified
 and the output image box location is centered within a 25% error bound from the center of the pedestrian.
 The only code borrowed to complete this project was from OpenCV to use filtering methods and for image bound comparison.
 <h3>Qualitative Results</h3>
-For the Midsemester goal, testing was implemented using OpenCV. The algorithm uses holistic detection to create a
-bounding box around images in the testing fileset. This will be used to test the algorithm created for the final report.
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="holisticSucc1.png">
+<br>
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="holSucc2.png">
+<br>
+Figures 2/3: Examples of correctly identified pedestrians using holistic detection.
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="partSucc1.png">
+<br>
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="partSucc2.png">
+<br>
+Figures 4/5: Examples of correctly identified pedestrians using part-based detection. Figure 5 shows an example
+of forward-facing detection working best.
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="holFalse1.png">
+<br>
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="holFalse2.png">
+<br>
+Figures 6/7: Examples of false positives using holistic detection (trash can).
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="partFalse1.png">
+<br>
+Figure 8: Example of false positive using part-based detection (tree on left of image).
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="holMiss1.png">
+<br>
+Figure 9: Example of false negative using holistic detection.
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="partMiss1.png">
+<br>
+Figure 10: Example of false negative using part-based detection.
+<div style="text-align: left;">
+<img style="height: 200px;" alt="" src="partMissingLower.png">
+<br>
+Figure 11: Example of part-based detection missing lower part.
+<div style="text-align: left;">
+<img style="height: 300px;" alt="" src="barChart.png">
+<br>
+Figure 12: Bar graph showing results across dataset.
 <h3>Conclusion and Future Work</h3>
+This report has described the approach and results of two algorithms used to detect pedestrians: part-based detection and holistic detection.
+Overall, this paper found why holistic detection is the preferred method of pedestrian detection
+in computer vision today. The results obtained show that while holistic detection is far from
+perfect, it performs much more reliably than it's part-based counterpart.
+<br>
+One of the most important aspects of detection that needs to be studied is performance variance
+at different angles. Both of these algorithms performed much better when a front-facing pedestrian
+was shown, while both performed poorly when viewing pedestrians from the side. Even during the
+research phase of the project, it was clear that most existing classifiers performed better on front facing
+pedestrians.
 <h3>References</h3>
 <!-- Final Report -->
 <!--
