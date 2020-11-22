@@ -101,22 +101,67 @@ For this project, the person model was subdivided into a top and lower half. If 
 The use cases of this project are to mimic existing research into pedestrian detection. This is a fascinating problem
 that has a lot of real world impact as autonomous vehicles come closer and closer to full commercialization.
 <h3>Approach</h3>
-Holistic detection focuses on training detectors to search for pedestrians in the image.
-The detector would highlight features in the local searching window that meet the criteria of the object.
-Such criteria includes a set of edge templates of pedestrians to compare against. Other systems include local features like histogram of oriented gradients.
-The problem with this method is the adverse effect of background clutter has on performance.
-For the scope of this project the image dataset used will limit the number of environment distraction to help with performance.
-This will come with the drawback that our implementation will not have widespread use.
+Originally, the program was going to create its own holistic histogram of oriented gradients (HOG) and use openCV’s classifier to detect objects, but that did not work out.
+The default people detector used by openCV (HOGDescriptor_getDefaultPeopleDetector) was incompatible with the HOG calculated.
+The created HOG was scaled from 0 to 1 and included no negative values, while the HOGDescriptor_getDefaultPeopleDetector included negative values.
+Thus the created HOG was incompatible with the openCV function.
+A self-created classifier was discussed, but was out of scope for this project. So the project pivoted toward using openCV’s functions for computing both detection methods.
+<br>
+The program followed these steps:
+<br>
+1. Input an image from the data set.
+<br>
+2. Find the amount of people and location of people in the image using holistic and part-based detection.
+<br>
+3. Draw the bounding box around the people.
+<br>
+4. Compare those results to the annotated data of the image for each method.
+<br>
+5. Update the total number of correct, under, and over predictions for each method.
+<br>
+6. Repeat steps 1 to 5 until all images are read through.
+<br>
+7. Output the relevant data.
+<br>
+The dataset of people was obtained from the <a href="https://www.cis.upenn.edu/~jshi/ped_html/">Penn-Fudan Database for Pedestrian Detection and Segmentation</a>. The dataset included 170 images with 345 labeled pedestrians.
+The images were input into the two detection algorithms and compared to the annotated images provided by the dataset.
+This dataset was large enough for this project, because no training was required. If the program trained its own classifier, then the number of images needed would run in the thousands.
+<br>
+The general method for both detection methods was to first search through the entire image pixel by Fpixel using a window of m x n dimensions, compute the HOG for each window, find the feature vector, and use said feature vector with the classifier to determine if it was a person.
+To complete said method code from <a href="https://www.geeksforgeeks.org/pedestrian-detection-using-opencv-python/">geeksforgeeks</a> using openCV was adapted into this program. Using the HOG class provided in openCV, the setSVMDetector() and detectMultiScale() functions were used to detect people.
+The setSVMDetector() was used to create the classifiers used for the two searching methods. The holistic detection method used openCV’s HOGDescriptor_getDefaultPeopleDetector() as its classifier, while the part-based detection used haarcascade_lowerbody.xml and haarcascade_upperbody.xml provided by openCV.
+<br>
 <h3>Experiments and Results</h3>
 This project used a large existing dataset from UPenn, shown <a href="https://www.cis.upenn.edu/~jshi/ped_html/">here</a>
-for both training and testing data. The training data was used to train the model
-to identify pedestrians and draw an image box around them. After training was completed,
-the remaining images had the locations of their image boxes recorded and validated against pre-determined coordinates
-from bounding in OpenCV.
+for experimental data. The dataset contained a few hundred images. As described above, the general approach was to apply both
+holistic and part-based detection to the dataset and then compare the two approaches.
 <br>
-This experiment will be considered successful if each pedestrian is identified
-and the output image box location is centered within a 25% error bound from the center of the pedestrian.
-The only code borrowed to complete this project was from OpenCV to use filtering methods and for image bound comparison.
+To do this, a few major metrics were used (shown below in Qualitative Results):
+<br>
+1. Basic Detection Percentage: The number of times an image had at least one pedestrian identified divided by the total number of images
+in the dataset.
+<br>
+2. Real Detection Percentage: The number of times an image identified the correct number of pedestrians divided by the total number of images in the dataset.
+The dataset used had .txt files associated with
+each image detailing the pedestrian location and number. A python script was created to extract this information. For part-based detection, both the upper
+and lower region of the pedestrian needed to be found to count as an identification.
+<br>
+3. Percent Overshoot: The number of times that an image identified too many pedestrians.
+<br>
+4. Percent Undershoot: The number of times that an image identified too few pedestrians.
+<br>
+As seen in the bar chart in Figure 12, holistic detection was much more effective than part-based detection at identifying pedestrians. The holistic approach
+successfully identified a pedestrian in over 90% of images, where the part-based approach only identified a pedestrian in about 65% of images. However, neither approach
+was highly successful at correctly identifying all pedestrians in each image. The holistic approach only identified every pedestrian correctly in each image 46% of the time.
+The most concerning piece of data gathered was in the percent of pedestrians that were missed, where holistic detection undershot the number of pedestrians 29% of the time and part-based
+detection missed pedestrians in 88% of the images.
+<br>
+One of the main drivers of missed pedestrians in the dataset was the way that pedestrians were standing. Visually observing several examples, each algorithm performs relatively poorly
+when pedestrians are walking at a side-profile. There are a few reasons for this. First, the feature vector that is shown at a side profile is smaller in regards to the image. When a pedestrian
+is facing the camera, there are more features to extract since they take up a larger area. Additionally, there is more research that has been done regarding recognition of various body parts from the front
+(like facial recognition), but not as much from the side. Unfortunately, this is a major problem for detecting pedestrians since pedestrians are often viewed from the side if they were to be seen by an autonomous
+vehicle. Several examples of this are shown below.
+<br>
 <h3>Qualitative Results</h3>
 <div style="text-align: left;">
 <img style="height: 200px;" alt="" src="holisticSucc1.png">
