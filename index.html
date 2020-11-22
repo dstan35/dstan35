@@ -100,7 +100,7 @@ For this project, the person model was subdivided into a top and lower half. If 
 This is a fascinating problem
 that has a lot of real world impact as autonomous vehicles come closer and closer to full commercialization.
 <h3>Approach</h3>
-Originally, the program was going to create its own holistic histogram of oriented gradients (HOG) and use openCV’s classifier to detect objects, but that did not work out.
+Originally, the program was going to use its own holistic histogram of oriented gradients (HOG) and use openCV’s classifier to detect objects, but that did not work out.
 The default people detector used by openCV (HOGDescriptor_getDefaultPeopleDetector) was incompatible with the HOG calculated.
 The created HOG was scaled from 0 to 1 and included no negative values, while the HOGDescriptor_getDefaultPeopleDetector included negative values.
 Thus the created HOG was incompatible with the openCV function.
@@ -126,7 +126,7 @@ The dataset of people was obtained from the <a href="https://www.cis.upenn.edu/~
 The images were input into the two detection algorithms and compared to the annotated images provided by the dataset.
 This dataset was large enough for this project, because no training was required. If the program trained its own classifier, then the number of images needed would run in the thousands.
 <br><br>
-The general method for both detection methods was to first search through the entire image pixel by Fpixel using a window of m x n dimensions, compute the HOG for each window, find the feature vector, and use said feature vector with the classifier to determine if it was a person.
+The general method for both detection methods was to first search through the entire image pixel by pixel using a window of m x n dimensions, compute the HOG for each window, find the feature vector, and use said feature vector with the classifier to determine if it was a person.
 To complete said method code from <a href="https://www.geeksforgeeks.org/pedestrian-detection-using-opencv-python/">geeksforgeeks</a> using openCV was adapted into this program. Using the HOG class provided in openCV, the setSVMDetector() and detectMultiScale() functions were used to detect people.
 The setSVMDetector() was used to create the classifiers used for the two searching methods. The holistic detection method used openCV’s HOGDescriptor_getDefaultPeopleDetector() as its classifier, while the part-based detection used haarcascade_lowerbody.xml and haarcascade_upperbody.xml provided by openCV.
 <br>
@@ -141,9 +141,9 @@ To do this, a few major metrics were used (shown below in Qualitative Results):
 in the dataset.
 <br>
 2. Real Detection Percentage: The number of times an image identified the correct number of pedestrians divided by the total number of images in the dataset.
-The dataset used had .txt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; files associated with
+The dataset used had .txt files associated with
 each image detailing the pedestrian location and number. A python script was created to extract this information. For part-based detection, both the upper
-and lower &nbsp; &nbsp; &nbsp; region of the pedestrian needed to be found to count as an identification.
+and lower region of the pedestrian needed to be found to count as an identification.
 <br>
 3. Percent Overshoot: The number of times that an image identified too many pedestrians.
 <br>
@@ -212,21 +212,22 @@ perfect, it performs much more reliably than it's part-based counterpart.
 <br><br>
 One of the most important aspects of detection that needs to be studied is performance variance
 at different angles. Both of these algorithms performed much better when a front-facing pedestrian
-was shown, while both performed poorly when viewing pedestrians from the side. Even during the
+was shown, while both performed poorly when viewing pedestrians from the side. To mitigate this issue in the holistic approach, there
+could be multiple different HOG classifiers for each image (side view,front view,back view). Even during the
 research phase of the project, it was clear that most existing classifiers performed better on front facing
 pedestrians.
 <h3>References</h3>
-1. V. de Poortere, J. Cant, B. Van den Bosch, J. de Prins, F. Fransens, and L. Van Gool. Efficient pedestrian detection: a test case for svm based categorization. Workshop on Cognitive &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Vision, 2002. Available online: http://www.vision.ethz.ch/cogvis02/.
+1. V. de Poortere, J. Cant, B. Van den Bosch, J. de Prins, F. Fransens, and L. Van Gool. Efficient pedestrian detection: a test case for svm based categorization. Workshop on Cognitive Vision, 2002. Available online: http://www.vision.ethz.ch/cogvis02/.
 <br>
-2. Dalal, Navneet,Bill Triggs. "Histograms of oriented gradients for human detection." 2005 IEEE computer society conference on computer vision and pattern recognition (CVPR'05). Vol. 1. &nbsp; &nbsp; IEEE, 2005.
+2. Dalal, Navneet,Bill Triggs. "Histograms of oriented gradients for human detection." 2005 IEEE computer society conference on computer vision and pattern recognition (CVPR'05). Vol. 1. IEEE, 2005.
 <br>
-3. “Feature Descriptor: Hog Descriptor Tutorial,” Analytics Vidhya, 10-May-2020. [Online]. Available: https://www.analyticsvidhya.com/blog/2019/09/feature-engineering-images-introduction- &nbsp; &nbsp; &nbsp; hog-feature-descriptor/. [Accessed: 22-Nov-2020].
+3. “Feature Descriptor: Hog Descriptor Tutorial,” Analytics Vidhya, 10-May-2020. [Online]. Available: https://www.analyticsvidhya.com/blog/2019/09/feature-engineering-images-introduction- hog-feature-descriptor/. [Accessed: 22-Nov-2020].
 <br>
-4. “Pedestrian Detection using OpenCV-Python,” GeeksforGeeks, 26-Mar-2020. [Online]. Available: https://www.geeksforgeeks.org/pedestrian-detection-using-opencv-python/. [Accessed: &nbsp; &nbsp; &nbsp; &nbsp; 22-Nov-2020].
+4. “Pedestrian Detection using OpenCV-Python,” GeeksforGeeks, 26-Mar-2020. [Online]. Available: https://www.geeksforgeeks.org/pedestrian-detection-using-opencv-python/. [Accessed: 22-Nov-2020].
 <br>
 5. Felzenszwalb, Pedro F., et al. "Object detection with discriminatively trained part-based models." IEEE transactions on pattern analysis and machine intelligence 32.9 (2009): 1627-1645.
 <br>
-6. “Penn-Fudan Database for Pedestrian Detection and Segmentation,” Pedestrian Detection Database. [Online]. Available: https://www.cis.upenn.edu/~jshi/ped_html/. [Accessed: 22-Nov-&nbsp; &nbsp; &nbsp; &nbsp; 2020].
+6. “Penn-Fudan Database for Pedestrian Detection and Segmentation,” Pedestrian Detection Database. [Online]. Available: https://www.cis.upenn.edu/~jshi/ped_html/. [Accessed: 22-Nov-2020].
 <br>
 
 <!-- Final Report -->
